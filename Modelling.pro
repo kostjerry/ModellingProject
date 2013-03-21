@@ -22,7 +22,12 @@ SOURCES += main.cpp\
     algorithms/gauss.cpp \
     algorithms/jacobi.cpp \
     integrators/impliciteuler.cpp \
-    algorithms/predictors.cpp
+    algorithms/predictors.cpp \
+    tools/matrix.cpp \
+    tools/vector.cpp \
+    algorithms/stiffness.cpp \
+    algorithms/eigenvalues.cpp \
+    tools/complex.cpp
 
 HEADERS  += mainwindow.h \
     visual/gnuplot.h \
@@ -33,6 +38,11 @@ HEADERS  += mainwindow.h \
     algorithms/gauss.h \
     algorithms/jacobi.h \
     integrators/impliciteuler.h \
-    algorithms/predictors.h
+    algorithms/predictors.h \
+    tools/matrix.h \
+    tools/vector.h \
+    algorithms/stiffness.h \
+    algorithms/eigenvalues.h \
+    tools/complex.h
 
 FORMS    += mainwindow.ui

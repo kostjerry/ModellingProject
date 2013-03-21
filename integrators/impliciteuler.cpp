@@ -1,7 +1,4 @@
 #include "impliciteuler.h"
-#include <algorithms/predictors.h>
-#include <algorithms/jacobi.h>
-#include <algorithms/gauss.h>
 
 ImplicitEuler::ImplicitEuler()
 {

@@ -7,6 +7,7 @@
 #include <math.h>
 #include <QMessageBox>
 #include <integrators/impliciteuler.h>
+#include <algorithms/eigenvalues.h>
 
 using namespace std;
 
@@ -26,6 +27,14 @@ void MainWindow::on_pushButton_2_clicked()
 {
     try
     {
+        double **ttt = new double*[2];
+        ttt[0] = new double[2];
+        ttt[1] = new double[2];
+        Eigenvalues *e = new Eigenvalues(ttt, 2);
+        e->getMin();
+
+        return;
+
         int nGraphic = 800;
         double* x0 = new double[2];
         x0[0] = 1.0;

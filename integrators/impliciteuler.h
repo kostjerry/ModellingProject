@@ -2,6 +2,9 @@
 #define IMPLICITEULER_H
 
 #include <integrators/integratorbase.h>
+#include <algorithms/predictors.h>
+#include <algorithms/jacobi.h>
+#include <algorithms/gauss.h>
 
 class ImplicitEuler : public IntegratorBase
 {
