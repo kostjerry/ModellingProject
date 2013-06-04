@@ -62,6 +62,7 @@ double** ExplicitEuler::integrate()
             {
                 results[i][iGraphic] = x[0][i];
             }
+            this->time[iGraphic] = tGraphic;
             tGraphic += hGraphic;
             iGraphic++;
         }

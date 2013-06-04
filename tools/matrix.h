@@ -15,7 +15,10 @@ public:
     Vector &operator [](int i);
     Matrix &operator *(double value);
     Matrix &operator +(Matrix &matrix);
+    Matrix &operator -(Matrix &matrix);
     static Matrix *E(int n);
+    static Matrix *E(int n, double value);
+    double **toArray();
 };
 
 #endif // MATRIX_H

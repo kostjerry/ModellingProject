@@ -73,7 +73,23 @@ Matrix &Matrix::operator +(Matrix &matrix)
     return (*matrixNew);
 }
 
-Matrix *Matrix::E(int n)
+Matrix &Matrix::operator -(Matrix &matrix)
+{
+    int i, j;
+    Matrix *matrixNew = this->copy();
+
+    for (i = 0; i < this->n; i++)
+    {
+        for (j = 0; j < this->n; j++)
+        {
+            (*matrixNew)[i][j] -= matrix[i][j];
+        }
+    }
+
+    return (*matrixNew);
+}
+
+Matrix *Matrix::E(int n, double value)
 {
     int i, j;
     Matrix *matrix = new Matrix(n);
@@ -81,8 +97,24 @@ Matrix *Matrix::E(int n)
     {
         for (j = 0; j < n; j++)
         {
-            (*matrix)[i][j] = ((i == j) ? 1.0 : 0.0);
+            (*matrix)[i][j] = ((i == j) ? value : 0.0);
         }
     }
     return matrix;
+}
+
+Matrix *Matrix::E(int n)
+{
+    return Matrix::E(n, 1.0);
+}
+
+double **Matrix::toArray()
+{
+    int i;
+    double **array = new double*[this->n];
+    for (i = 0; i < this->n; i++)
+    {
+        array[i] = this->items[i]->toArray();
+    }
+    return array;
 }

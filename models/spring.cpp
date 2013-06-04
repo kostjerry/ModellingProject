@@ -4,6 +4,11 @@ Spring::Spring()
 {
     this->name = "Spring mass model";
     this->size = 2;
+    this->x0 = new double[2];
+    this->x0[0] = 0.0;
+    this->x0[1] = 1.0;
+    this->tStart = 0.0;
+    this->tStop = 10.0;
 }
 
 double* Spring::F(double *x, double t)

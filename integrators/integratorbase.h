@@ -22,6 +22,13 @@ public:
     void setParam(string name, double value);
     double getParam(string name);
     double* getTime();
+
+    double *stiffnessPM = NULL;
+    double *stiffnessPMIterations = NULL;
+    double *stiffnessSPM = NULL;
+    double *stiffnessSPMIterations = NULL;
+    double *stiffnessIPM = NULL;
+    double *stiffnessIPMIterations = NULL;
 protected:
     string name = "";
     ModelBase* model = NULL;
@@ -32,6 +39,7 @@ protected:
     int nGraphic = NULL;
     double hGraphic = NULL;
     double** createResultsArray();
+    double *time = NULL;
     void initIntegration();
 private:
     map<string, double> params;

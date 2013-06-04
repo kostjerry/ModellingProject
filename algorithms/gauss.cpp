@@ -2,7 +2,7 @@
 
 Gauss::Gauss()
 {
-    this->eps = 1e-7;
+    this->eps = 1e-12;
 }
 
 double *Gauss::solve(double **a, double *b, int n)
@@ -16,7 +16,7 @@ double *Gauss::solve(double **a, double *b, int n)
     {
         if (a[0][0] < this->eps)
         {
-            throw "[Gauss] Matrix is poorly conditioned";
+            return 0;
         }
         else
         {
@@ -41,7 +41,7 @@ double *Gauss::solve(double **a, double *b, int n)
 
             if (r < this->eps)
             {
-                throw "[Gauss] Matrix is poorly conditioned";
+                return 0;
             }
 
             if (k != i)
@@ -79,7 +79,7 @@ double *Gauss::solve(double **a, double *b, int n)
 
         if (fabs(a[nPrev][nPrev]) <= this->eps)
         {
-            throw "[Gauss] Matrix is poorly conditioned";
+            return 0;
         }
 
         x[nPrev] = b[nPrev] / a[nPrev][nPrev];

@@ -1,15 +1,15 @@
 #include "vector.h"
 
-Vector::Vector(int m)
+Vector::Vector(int n)
 {
-    this->m = m;
-    this->items = new double[m];
+    this->n = n;
+    this->items = new double[n];
 }
 
 void Vector::init(double value)
 {
     int i;
-    for (i = 0; i < this->m; i++)
+    for (i = 0; i < this->n; i++)
     {
         this->items[i] = value;
     }
@@ -18,7 +18,7 @@ void Vector::init(double value)
 void Vector::init(double *values)
 {
     int i;
-    for (i = 0; i < this->m; i++)
+    for (i = 0; i < this->n; i++)
     {
         this->items[i] = values[i];
     }
@@ -27,13 +27,13 @@ void Vector::init(double *values)
 Vector *Vector::copy()
 {
     int i,
-        m = this->m;
+        n = this->n;
     double *items = this->items;
-    Vector *vectorCopy = new Vector(m);
+    Vector *vectorCopy = new Vector(n);
 
-    for (i = 0; i < m; i++)
+    for (i = 0; i < n; i++)
     {
-        vectorCopy[i] = items[i];
+        (*vectorCopy)[i] = items[i];
     }
 
     return vectorCopy;
@@ -41,17 +41,52 @@ Vector *Vector::copy()
 
 double &Vector::operator [](int i)
 {
-    if ((i < 0) || (i >= this->m))
+    if ((i < 0) || (i >= this->n))
     {
         throw "[Vector] Index out of range";
     }
     return this->items[i];
 }
 
+double *Vector::toArray()
+{
+    return this->copy()->items;
+}
+
+double Vector::normByMax()
+{
+    int i;
+    double  itemMaxAbs = 0.0,
+            itemMax = 1.0,
+            itemCurAbs,
+            itemCur;
+    for (i = 0; i < this->n; i++)
+    {
+        itemCur = this->items[i];
+        itemCurAbs = fabs(itemCur);
+        if (itemCurAbs > itemMaxAbs)
+        {
+            itemMaxAbs = itemCurAbs;
+            itemMax = itemCur;
+        }
+    }
+
+    if (itemMax != 0)
+    {
+        for (i = 0; i < this->n; i++)
+        {
+            this->items[i] /= itemMax;
+        }
+    }
+
+    return itemMax;
+}
+
+/*
 double Vector::operator *=(double scalar)
 {
     int i,
-        m = this->m;
+        m = this->n;
 
     for (i = 0; i < m; i++)
     {
@@ -62,7 +97,7 @@ double Vector::operator *=(double scalar)
 double Vector::operator *=(Vector vector)
 {
     int i,
-        m = this->m;
+        m = this->n;
     double sum = 0.0;
     double *items = this->items;
 
@@ -73,3 +108,4 @@ double Vector::operator *=(Vector vector)
 
     return sum;
 }
+*/

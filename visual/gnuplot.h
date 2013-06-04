@@ -13,7 +13,7 @@ class Gnuplot
 {
 public:
     Gnuplot();
-    void plotGraphics(double **data, double *time, int n);
+    void plotGraphics(double **data, double *time, double *stiffness, int n);
     void plotGraphic(double *x, double *y, int n, string name);
     void addGraphicView(int coord1, int coord2, string name);
     void clearGraphicViews();

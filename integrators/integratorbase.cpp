@@ -12,6 +12,9 @@ double** IntegratorBase::integrate()
 void IntegratorBase::setModel(ModelBase *model)
 {
     this->model = model;
+    this->x0 = model->getX0();
+    this->tStart = model->getTStart();
+    this->tStop = model->getTStop();
 }
 
 void IntegratorBase::setX0(double* x0)
@@ -72,22 +75,7 @@ double IntegratorBase::getParam(string name)
 
 double *IntegratorBase::getTime()
 {
-    if (this->hGraphic == NULL)
-    {
-        throw "Perform intergation first";
-    }
-
-    int i;
-    int nGraphic = this->nGraphic;
-    double hGraphic = this->hGraphic;
-    double t = this->tStart;
-    double* time = new double[nGraphic];
-    for (i = 0; i < nGraphic; i++)
-    {
-        time[i] = t;
-        t += hGraphic;
-    }
-    return time;
+    return this->time;
 }
 
 void IntegratorBase::initIntegration()
@@ -118,4 +106,12 @@ void IntegratorBase::initIntegration()
     }
 
     this->hGraphic = (this->tStop - this->tStart) / (double)this->nGraphic;
+    this->time = new double[this->nGraphic];
+
+    this->stiffnessPM = new double[this->nGraphic];
+    this->stiffnessPMIterations = new double[this->nGraphic];
+    this->stiffnessSPM = new double[this->nGraphic];
+    this->stiffnessSPMIterations = new double[this->nGraphic];
+    this->stiffnessIPM = new double[this->nGraphic];
+    this->stiffnessIPMIterations = new double[this->nGraphic];
 }

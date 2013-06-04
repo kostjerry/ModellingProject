@@ -1,4 +1,7 @@
 #include "impliciteuler.h"
+#include <algorithms/eigenvalues.h>
+#include <algorithms/stiffness.h>
+#include <algorithms/op.h>
 
 ImplicitEuler::ImplicitEuler()
 {
@@ -24,16 +27,22 @@ double** ImplicitEuler::integrate()
     int i, j;
     double *fNewton,
            **jacobi,
+           **jacobiSave,
            *dx,
            dxMax,
            dxAbs,
            *xp, // predicted vector
            *fp, // F of predicted vector
-           tp; // predicted time
+           tp, // predicted time
+           stiffnessVal,
+           eMin, eMax; // eigenvalues vars
     double **x = this->getInitPoints(hInt); // History container
     Predictors *predictorsAlgo = new Predictors();
     Jacobi *jacobiAlgo = new Jacobi(eps);
     Gauss *gaussAlgo = new Gauss();
+    Stiffness *stiffAlgo = new Stiffness();
+    Op *op = new Op();
+    jacobiSave = op->createMatrix(modelSize);
 
     // Save 1st point
     for (i = 0; i < modelSize; i++)
@@ -59,6 +68,8 @@ double** ImplicitEuler::integrate()
 
             // Calculate Jacobi matrix
             jacobi = jacobiAlgo->get(model, xp, tp);
+            op->copyMatrix(jacobiSave, jacobi, modelSize);
+
             for (i = 0; i < modelSize; i++)
             {
                 for (j = 0; j < modelSize; j++)
@@ -103,6 +114,17 @@ double** ImplicitEuler::integrate()
             {
                 results[i][iGraphic] = x[0][i];
             }
+
+            this->stiffnessPM[iGraphic] = stiffAlgo->getPM(jacobiSave, modelSize);
+            this->stiffnessPMIterations[iGraphic] = stiffAlgo->getIterationsCount();
+
+            this->stiffnessSPM[iGraphic] = stiffAlgo->getSPM(jacobiSave, modelSize);
+            this->stiffnessSPMIterations[iGraphic] = stiffAlgo->getIterationsCount();
+
+            this->stiffnessIPM[iGraphic] = stiffAlgo->getIPM(jacobiSave, modelSize);
+            this->stiffnessIPMIterations[iGraphic] = stiffAlgo->getIterationsCount();
+
+            this->time[iGraphic] = tGraphic;
             tGraphic += hGraphic;
             iGraphic++;
         }

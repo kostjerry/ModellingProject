@@ -2,23 +2,22 @@
 
 Eigenvalues::Eigenvalues(double **matrix, int n)
 {
-    this->matrix = new Matrix(n);
-    this->matrix->init(matrix);
+    this->matrix = matrix;
     this->n = n;
-    this->eps = 0.001;
+    this->exactMethod = new IPM(this->matrix, this->n);
 }
 
 double Eigenvalues::getMin()
 {
-    Vector *yK = new Vector(this->n);
-    double lK = 0.0; // Initial eigenvalue
-    yK->init(0.0); // Initial eigenvector
-    Matrix *E = Matrix::E(n);
-    *E = *E + *E;
-
+    return this->exactMethod->getMin();
 }
 
 double Eigenvalues::getMax()
 {
-    return 0;
+    return this->exactMethod->getMax();
+}
+
+int Eigenvalues::getIterationsCount()
+{
+    return this->exactMethod->getIterationsCount();
 }

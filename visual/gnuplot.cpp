@@ -6,7 +6,7 @@ Gnuplot::Gnuplot()
     std::setlocale(LC_ALL, "en_US.UTF-8");
 }
 
-void Gnuplot::plotGraphics(double** data, double* time, int n)
+void Gnuplot::plotGraphics(double** data, double* time, double* stiffness, int n)
 {
     map<string, int_pair> graphicsView = this->graphicViews;
     map<string, int_pair>::iterator iter;
@@ -15,16 +15,33 @@ void Gnuplot::plotGraphics(double** data, double* time, int n)
         string name = iter->first;
         int_pair p = iter->second;
         int indexFirst = p.first;
-        double *x;
-        if (indexFirst == 0)
-        {
-            x = time;
+        int indexSecond = p.second;
+        double *x, *y;
+
+        switch (indexFirst) {
+            case -1:
+                x = stiffness;
+                break;
+            case 0:
+                x = time;
+                break;
+            default:
+                x = data[indexFirst - 1];
+                break;
         }
-        else
-        {
-            x = data[indexFirst - 1];
+
+        switch (indexSecond) {
+            case -1:
+                y = stiffness;
+                break;
+            case 0:
+                y = time;
+                break;
+            default:
+                y = data[indexSecond - 1];
+                break;
         }
-        double *y = data[p.second - 1];
+
         this->plotGraphic(x, y, n, name);
     }
 }
