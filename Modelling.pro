@@ -46,7 +46,10 @@ SOURCES += main.cpp\
     algorithms/eigenvalues/exact/ipm.cpp \
     integrators/shichman.cpp \
     integrators/maulton.cpp \
-    integrators/fdn.cpp
+    integrators/fdn.cpp \
+    models/c1.cpp \
+    models/c2.cpp \
+    models/c3.cpp
 
 HEADERS  += mainwindow.h \
     visual/gnuplot.h \
@@ -81,6 +84,9 @@ HEADERS  += mainwindow.h \
     algorithms/eigenvalues/exact/ipm.h \
     integrators/shichman.h \
     integrators/maulton.h \
-    integrators/fdn.h
+    integrators/fdn.h \
+    models/c1.h \
+    models/c2.h \
+    models/c3.h
 
 FORMS    += mainwindow.ui

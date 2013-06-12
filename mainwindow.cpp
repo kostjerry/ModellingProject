@@ -17,6 +17,9 @@
 #include <models/s28e.h>
 #include <integrators/shichman.h>
 #include <integrators/maulton.h>
+#include <models/c1.h>
+#include <models/c2.h>
+#include <models/c3.h>
 
 using namespace std;
 
@@ -70,8 +73,8 @@ void MainWindow::on_pushButton_2_clicked()
 
 
         int nGraphic = 800;
-        ModelBase* model = new Spring();
-        IntegratorBase *intergator = new Maulton();
+        ModelBase* model = new C3();
+        IntegratorBase *intergator = new ImplicitEuler();
         intergator->setModel(model);
         intergator->setNGraphic(nGraphic);
         intergator->setEps(0.001);
@@ -89,8 +92,9 @@ void MainWindow::on_pushButton_2_clicked()
         //double* stiffnessIPMIterations = euler->stiffnessIPMIterations;
 
         Gnuplot *plot = new Gnuplot();
-        plot->plotGraphic(time, results[0], nGraphic, "X");
-        plot->plotGraphic(time, results[1], nGraphic, "Y");
+        plot->plotGraphic(time, results[0], nGraphic, "X1");
+        plot->plotGraphic(time, results[1], nGraphic, "X2");
+        plot->plotGraphic(time, results[2], nGraphic, "X3");
 
         //plot->plotGraphic(time, stiffnessPM, nGraphic, "Stiffness PM");
         //plot->plotGraphic(time, stiffnessPMIterations, nGraphic, "StiffnessPMIterations");
